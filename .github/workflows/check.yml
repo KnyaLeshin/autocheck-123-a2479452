@@ -1,0 +1,20 @@
+name: AutoCheck
+'on':
+- push
+- pull_request
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Test 1
+      run: "echo \"Running test 1...\"\necho '123' | python solution.py > output.txt\n\
+        if diff output.txt <(echo '321'); then\n  echo \"✓ Test 1 passed\"\nelse\n\
+        \  echo \"✗ Test 1 failed\"\n  exit 1\nfi"
+    - name: All tests passed
+      run: echo "All tests passed successfully!"
